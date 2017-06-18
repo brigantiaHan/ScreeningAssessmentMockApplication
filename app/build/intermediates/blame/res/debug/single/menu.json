@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "C:\\AssessmentMockApp\\app\\build\\intermediates\\res\\merged\\debug\\menu\\bottom_menu.xml",
+        "source": "C:\\AssessmentMockApp\\app\\src\\main\\res\\menu\\bottom_menu.xml"
+    },
+    {
+        "merged": "C:\\AssessmentMockApp\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_done.xml",
+        "source": "C:\\AssessmentMockApp\\app\\src\\main\\res\\menu\\menu_done.xml"
+    }
+]

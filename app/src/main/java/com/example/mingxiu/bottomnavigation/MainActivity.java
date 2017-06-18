@@ -1,6 +1,8 @@
 package com.example.mingxiu.bottomnavigation;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -8,8 +10,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -73,21 +79,33 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
+                if(fragment == searchFragment){
 
-                if(TaboneFragment.getCode() == 2){
+                    if(TaboneFragment.getCode() == 2){
 
-                    int code = TaboneFragment.getCode();
-                    code--;
-                    TaboneFragment.setCode(code);
-                    transaction = fragmentManager.beginTransaction();
-                    transaction.replace(R.id.main_container, searchFragment).commit();
+                        int code = TaboneFragment.getCode();
+                        code--;
+                        TaboneFragment.setCode(code);
+                        transaction = fragmentManager.beginTransaction();
+                        TaboneFragment.scColor = 100;
+                        TaboneFragment.scbDrawable.setColor(Color.parseColor("#ffffff"));
+                        searchFragment = new TaboneFragment();
+                        transaction.replace(R.id.main_container, searchFragment).commit();
 
-                } else if(TaboneFragment.getCode() == 3){
-                    int code = TaboneFragment.getCode();
-                    code--;
-                    TaboneFragment.setCode(code);
-                    transaction = fragmentManager.beginTransaction();
-                    transaction.replace(R.id.main_container, searchFragment2).commit();
+                    } else if(TaboneFragment.getCode() == 3){
+                        int code = TaboneFragment.getCode();
+                        code--;
+                        TaboneFragment.setCode(code);
+                        transaction = fragmentManager.beginTransaction();
+                        transaction.replace(R.id.main_container, searchFragment2).commit();
+
+                    } else {
+
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
 
                 }
 

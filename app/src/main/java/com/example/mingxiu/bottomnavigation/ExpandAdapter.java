@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
 import java.util.ArrayList;
 
@@ -71,6 +72,17 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
             LayoutInflater inf = (LayoutInflater) context
                     .getSystemService(context.LAYOUT_INFLATER_SERVICE);
             convertView = inf.inflate(R.layout.group_item, null);
+
+        }
+        ExpandableListView expandableListView = (ExpandableListView) parent;
+        if(TabthreeFragment.groupSizeChanged == true){
+            if(TabthreeFragment.previousGroup != -1){
+                expandableListView.collapseGroup(TabthreeFragment.previousGroup);
+                TabthreeFragment.previousGroup++;
+                expandableListView.expandGroup(TabthreeFragment.previousGroup);
+
+            }
+            TabthreeFragment.groupSizeChanged = false;
         }
         TextView tv = (TextView) convertView.findViewById(R.id.group_name);
         tv.setText(grp.getName());

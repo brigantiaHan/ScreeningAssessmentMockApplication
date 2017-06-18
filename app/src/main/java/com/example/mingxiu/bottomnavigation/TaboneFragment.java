@@ -1,6 +1,7 @@
 package com.example.mingxiu.bottomnavigation;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -19,6 +20,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,10 +41,10 @@ import java.util.List;
 
 
 public class TaboneFragment extends Fragment {
-    private Button submitBtn;
+    public static Button submitBtn;
     private Button scbtn;
-    private EditText editTextNumber;
-    private EditText editTextName;
+    private  EditText editTextNumber;
+    private  EditText editTextName;
     private List<String> myData;
     private String preName = "";
     private View view;
@@ -52,9 +54,9 @@ public class TaboneFragment extends Fragment {
     private Toolbar myToolbar;
     private View bottomView;
     private Button btnDone;
-    private Dialog mBottomSheetDialog;
-    private GradientDrawable scbDrawable;
-    private int scColor = 100;
+    public static  Dialog mBottomSheetDialog;
+    public static GradientDrawable scbDrawable;
+    public static int scColor = 100;
     private String colorName = "";
     private DatabaseHelper databaseHelper;
     private FragmentManager fragmentManager;
@@ -88,6 +90,7 @@ public class TaboneFragment extends Fragment {
         bottomView = getActivity().getLayoutInflater().inflate(R.layout.bottom_sheet, null);
         btnDone = (Button) bottomView.findViewById(R.id.btnDone);
         listView = (ListView) bottomView.findViewById(R.id.listView1);
+
         final String[] listValue = new String[]{"Orange", "Yellow", "Green", "Red", "Blue", "Purple"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(bottomView.getContext(), android.R.layout.simple_list_item_1, android.R.id.text1, listValue);
         listView.setAdapter(adapter);
@@ -184,6 +187,7 @@ public class TaboneFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable final Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         isInsertData = false;
         isSend = false;
         if(code == 2){
@@ -208,7 +212,20 @@ public class TaboneFragment extends Fragment {
         mBottomSheetDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         mBottomSheetDialog.getWindow().setGravity(Gravity.BOTTOM);
-
+        mBottomSheetDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if( keyCode == KeyEvent.KEYCODE_BACK )
+                {
+                    //Toast.makeText(getContext(),"great",Toast.LENGTH_SHORT).show();
+                    scColor = 100;
+                    scbDrawable.setColor(Color.parseColor("#ffffff"));
+                    mBottomSheetDialog.dismiss();
+                    return true;
+                }
+                return false;
+            }
+        });
         scbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

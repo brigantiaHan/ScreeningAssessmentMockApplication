@@ -11,6 +11,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -25,8 +26,10 @@ public class TabthreeFragment extends Fragment {
     private static ArrayList<group> group_list = new ArrayList<group>();
     private static ArrayList<child> child_list;
     private DatabaseHelper databaseHelper;
-    private int previousGroup = -1;
-
+    public static boolean groupSizeChanged = false;
+    public static int previousGroup = -1;
+    private int pre_grpsize = -1;
+    int groupposition = 0;
     public TabthreeFragment() {
     }
 
@@ -49,6 +52,7 @@ public class TabthreeFragment extends Fragment {
         }
 
         StringBuffer stringBuffer = new StringBuffer();
+
         group_list.clear();
         while (res.moveToNext()) {
             String name = res.getString(1);
@@ -65,6 +69,9 @@ public class TabthreeFragment extends Fragment {
             group_list.add(g);
 
         }
+        if(pre_grpsize == -1){
+            pre_grpsize = group_list.size();
+        }
 
     }
     public group getGroup(int groupPosition){
@@ -75,31 +82,32 @@ public class TabthreeFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         retrieveAll();
+        if(pre_grpsize != -1 && pre_grpsize != group_list.size()){
+            groupSizeChanged = true;
+            pre_grpsize = group_list.size();
+        }
+
         expandListItems = group_list;
         expandAdapter = new ExpandAdapter(this.getContext(), expandListItems);
         expandList.setAdapter(expandAdapter);
 
+
+
         expandList.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
-                if (previousGroup != groupPosition) {
-                    expandList.collapseGroup(previousGroup);
 
-                }
-                previousGroup = groupPosition;
+                    if (previousGroup != -1 && previousGroup != groupPosition) {
+                        expandList.collapseGroup(previousGroup);
+
+                    }
+                    previousGroup = groupPosition;
+
+
+
             }
         });
-        expandList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                if (expandList.isGroupExpanded(groupPosition)) {
 
-                } else {
-
-                }
-                return false;
-            }
-        });
     }
 
 

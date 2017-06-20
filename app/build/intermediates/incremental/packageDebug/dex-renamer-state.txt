@@ -1,0 +1,7 @@
+#Sun Jun 18 00:16:14 PDT 2017
+base.0=C\:\\AssessmentMockApp\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_486e6b407c6573e107821f9c01e4b084cac63b1a
+renamed.1=classes.dex
+renamed.0=classes2.dex
+file.1=C\:\\AssessmentMockApp\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_05cc353a8928fe46207f413b3027ae806f20d3e0\\classes.dex
+base.1=C\:\\AssessmentMockApp\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_05cc353a8928fe46207f413b3027ae806f20d3e0
+file.0=C\:\\AssessmentMockApp\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_486e6b407c6573e107821f9c01e4b084cac63b1a\\classes.dex
